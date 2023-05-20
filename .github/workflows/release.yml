@@ -1,0 +1,14 @@
+name: Release 📦
+
+on:
+  push:
+    branches: ['main']
+
+jobs:
+  release:
+    uses: kloud-cnf/workflows/.github/workflows/automated-release.yaml@v0.2.1
+    secrets:
+      BOT_GPG_PRIVATE_KEY: ${{ secrets.BOT_GPG_PRIVATE_KEY }}
+      BOT_GPG_PASSPHRASE: ${{ secrets.BOT_GPG_PASSPHRASE }}
+      BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
