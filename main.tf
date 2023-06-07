@@ -3,12 +3,28 @@ locals {
   providers_with_root_targets = { for k, v in local.providers : k => v if v.enable_stack }
   providers_with_ou_targets   = { for k, v in local.providers : k => v if length(v.enabled_org_units) > 0 && v.enable_stackset }
 
-  provider_schema = {
+  // Platform specific formatting
+  platform_config = {
+    // Github -> https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#example-subject-claims
+    // repo:<orgName/repoName>:ref:refs/heads/{branchName}
+    // repo:octo-org/octo-repo:ref:refs/heads/demo-branch
+    // repo:<orgName/repoName>:ref:refs/tags/<tagName>
     github = {
-      subkey = "repo" # https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services#configuring-the-role-and-trust-policy
+      trusted_projects_refs = flatten([for project in local.providers["github"].trusted_projects_refs : [
+        [for combo in setproduct(project.paths, project.branches) : format("repo:%s:ref:refs/heads/%s", combo[0], combo[1])],
+        [for combo in setproduct(project.paths, project.tags) : format("repo:%s:ref:refs/tags/%s", combo[0], combo[1])],
+      ]])
     }
+
+    // Gitlab -> https://docs.gitlab.com/ee/ci/cloud_services/index.html#configure-a-conditional-role-with-oidc-claims
+    // project_path:{group}/{project}:ref_type:{type}:ref:{branch_name||tag_name}
+    // project_path:mygroup/myproject:ref_type:branch:ref:main
+    // project_path:mygroup/myproject:ref_type:tag:ref:v1.0.0
     gitlab = {
-      subkey = "project_path" # https://docs.gitlab.com/ee/ci/cloud_services/aws/#configure-a-role-and-trust
+      trusted_projects_refs = flatten([for project in local.providers["gitlab"].trusted_projects_refs : [
+        [for combo in setproduct(project.paths, project.branches) : format("project_path:%s:ref_type:branch:ref:%s", combo[0], combo[1])],
+        [for combo in setproduct(project.paths, project.tags) : format("project_path:%s:ref_type:tag:ref:%s", combo[0], combo[1])],
+      ]])
     }
   }
 }
@@ -23,10 +39,7 @@ resource "aws_cloudformation_stack" "ci_oidc_provider" {
     provider_domain = each.value.provider_domain
     audience        = each.value.audience
     thumbprints     = each.value.thumbprints
-    trusted_projects_refs = flatten([for project in each.value.trusted_projects_refs : [
-      [for combo in setproduct(project.paths, project.branches) : format("${local.provider_schema[each.key].subkey}:%s:ref_type:branch:ref:%s", combo[0], combo[1])],
-      [for combo in setproduct(project.paths, project.tags) : format("${local.provider_schema[each.key].subkey}:%s:ref_type:tag:ref:%s", combo[0], combo[1])],
-    ]])
+    trusted_projects_refs = local.platform_config[each.key].trusted_projects_refs
   })
 
   capabilities = ["CAPABILITY_NAMED_IAM"]
@@ -42,10 +55,7 @@ resource "aws_cloudformation_stack_set" "ci_oidc_provider" {
     provider_domain = each.value.provider_domain
     audience        = each.value.audience
     thumbprints     = each.value.thumbprints
-    trusted_projects_refs = flatten([for project in each.value.trusted_projects_refs : [
-      [for combo in setproduct(project.paths, project.branches) : format("${local.provider_schema[each.key].subkey}:%s:ref_type:branch:ref:%s", combo[0], combo[1])],
-      [for combo in setproduct(project.paths, project.tags) : format("${local.provider_schema[each.key].subkey}:%s:ref_type:tag:ref:%s", combo[0], combo[1])],
-    ]])
+    trusted_projects_refs = local.platform_config[each.key].trusted_projects_refs
   })
 
   capabilities     = ["CAPABILITY_NAMED_IAM"]
