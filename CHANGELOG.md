@@ -1,4 +1,15 @@
-## [1.0.1](https://github.com/kloud-cnf/terraform-aws-ci-role-provisioner/compare/v1.0.0...v1.0.1) (2023-06-07)
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Contents
+
+- [1.0.1 (2023-06-07)](#101-2023-06-07)
+    - [Bug Fixes](#bug-fixes)
+- [1.0.0 (2023-05-23)](#100-2023-05-23)
+    - [Features](#features)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+# [1.0.1](https://github.com/kloud-cnf/terraform-aws-ci-role-provisioner/compare/v1.0.0...v1.0.1) (2023-06-07)
 
 
 ### Bug Fixes
