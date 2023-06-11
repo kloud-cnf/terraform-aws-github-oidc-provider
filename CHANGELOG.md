@@ -1,3 +1,11 @@
+## [1.0.2](https://github.com/kloud-cnf/terraform-aws-ci-role-provisioner/compare/v1.0.1...v1.0.2) (2023-06-11)
+
+
+### Bug Fixes
+
+* **iam:** support OIDC pull_request event claim for github provider ([a07dc20](https://github.com/kloud-cnf/terraform-aws-ci-role-provisioner/commit/a07dc20a846085cc414c10591965e1a6ec9b9cae))
+* **iam:** support OIDC pull_request event claim for github provider ([6d18fab](https://github.com/kloud-cnf/terraform-aws-ci-role-provisioner/commit/6d18fab41dff416ad031fc4adde691d8efb7f489))
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Contents
