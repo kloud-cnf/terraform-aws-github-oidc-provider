@@ -9,7 +9,7 @@ variable "oidc_providers" {
       paths        = list(string)
       branches     = optional(list(string), [])
       tags         = optional(set(string), [])
-      pull_request = optional(bool, true) # defaults to true, only required for github oidc
+      pull_request = optional(bool, true) # Allow role to be assumed on PR event, defaults to true, only needed for GitHub
     }))
     thumbprints       = list(string)
     enabled_org_units = optional(list(string), [])
