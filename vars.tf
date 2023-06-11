@@ -5,10 +5,11 @@ variable "oidc_providers" {
     enable_stackset = optional(bool, true) # enable stackset for target `enabled_org_units`
     provider_domain = string
     audience        = string
-    trusted_projects_refs = list(object({
-      paths    = list(string)
-      branches = optional(list(string), [])
-      tags     = optional(set(string), [])
+    trusted_projects_refs = list(object({ # Define repo(s) access to CI provioner role
+      paths        = list(string)
+      branches     = optional(list(string), [])
+      tags         = optional(set(string), [])
+      pull_request = optional(bool, true) # defaults to true, only required for github oidc
     }))
     thumbprints       = list(string)
     enabled_org_units = optional(list(string), [])

@@ -6,11 +6,12 @@ locals {
   // Platform specific formatting
   platform_config = {
     // Github -> https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#example-subject-claims
-    // repo:<orgName/repoName>:ref:refs/heads/{branchName}
-    // repo:octo-org/octo-repo:ref:refs/heads/demo-branch
-    // repo:<orgName/repoName>:ref:refs/tags/<tagName>
+    // repo:<orgName/repoName>:ref:refs/heads/<branchName>  -> https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#filtering-for-a-specific-branch
+    // repo:<orgName/repoName>:ref:refs/tags/<tagName>      -> https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#filtering-for-a-specific-tag
+    // repo:<orgName/repoName>:pull_request                 -> https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#filtering-for-pull_request-events
     github = {
       trusted_projects_refs = flatten([for project in local.providers["github"].trusted_projects_refs : [
+        [for path in project.paths : format("repo:%s:pull_request", path) if project.pull_request],
         [for combo in setproduct(project.paths, project.branches) : format("repo:%s:ref:refs/heads/%s", combo[0], combo[1])],
         [for combo in setproduct(project.paths, project.tags) : format("repo:%s:ref:refs/tags/%s", combo[0], combo[1])],
       ]])
@@ -35,10 +36,10 @@ resource "aws_cloudformation_stack" "ci_oidc_provider" {
   name = "${each.key}-aws-oidc-provider"
 
   template_body = templatefile("${path.module}/templates/stackset.yaml.tftpl", {
-    platform        = each.key
-    provider_domain = each.value.provider_domain
-    audience        = each.value.audience
-    thumbprints     = each.value.thumbprints
+    platform              = each.key
+    provider_domain       = each.value.provider_domain
+    audience              = each.value.audience
+    thumbprints           = each.value.thumbprints
     trusted_projects_refs = local.platform_config[each.key].trusted_projects_refs
   })
 
@@ -51,10 +52,10 @@ resource "aws_cloudformation_stack_set" "ci_oidc_provider" {
   name = "${each.key}-aws-oidc-provider"
 
   template_body = templatefile("${path.module}/templates/stackset.yaml.tftpl", {
-    platform        = each.key
-    provider_domain = each.value.provider_domain
-    audience        = each.value.audience
-    thumbprints     = each.value.thumbprints
+    platform              = each.key
+    provider_domain       = each.value.provider_domain
+    audience              = each.value.audience
+    thumbprints           = each.value.thumbprints
     trusted_projects_refs = local.platform_config[each.key].trusted_projects_refs
   })
 
