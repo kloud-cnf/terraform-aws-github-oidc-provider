@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/kloud-cnf/terraform-aws-ci-role-provisioner/compare/v1.0.2...v1.0.3) (2023-06-16)
+
+
+### Bug Fixes
+
+* **outputs:** add some outputs to share info about provider deployments to root+OU targets ([3eb3c58](https://github.com/kloud-cnf/terraform-aws-ci-role-provisioner/commit/3eb3c58b599566466494a63c0e65c6c6ce2aee0b))
+
 ## [1.0.2](https://github.com/kloud-cnf/terraform-aws-ci-role-provisioner/compare/v1.0.1...v1.0.2) (2023-06-11)
 
 
