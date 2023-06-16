@@ -124,5 +124,10 @@ No modules.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_enabled_provider_stack_names"></a> [enabled\_provider\_stack\_names](#output\_enabled\_provider\_stack\_names) | Stack names for enabled CI OIDC providers |
+| <a name="output_enabled_provider_stack_set_names"></a> [enabled\_provider\_stack\_set\_names](#output\_enabled\_provider\_stack\_set\_names) | Stack set names for enabled CI OIDC providers |
+| <a name="output_enabled_providers"></a> [enabled\_providers](#output\_enabled\_providers) | Names of currently enabled OIDC providers |
+| <a name="output_provider_deployment_targets"></a> [provider\_deployment\_targets](#output\_provider\_deployment\_targets) | A Map of providers each with a list of deployment targets referenced by OU path |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
