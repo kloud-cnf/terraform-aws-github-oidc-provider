@@ -1,5 +1,7 @@
 # terraform-aws-github-oidc-provider
 
+![](https://img.shields.io/badge/Terraform-1.5x-623CE4?logo=terraform)
+
 > Terraform module to manage IAM OIDC Provider for Github with an entrypoint IAM role 
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -89,7 +91,7 @@ inputs = {
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.4 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 5.0 |
 
 ## Providers
