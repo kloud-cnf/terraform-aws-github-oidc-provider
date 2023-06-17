@@ -12,6 +12,7 @@ repos:
       - id: check-json
       - id: check-merge-conflict
       - id: pretty-format-json
+      - id: end-of-file-fixer
   - repo: https://github.com/thlorenz/doctoc
     rev: v2.2.0
     hooks:
