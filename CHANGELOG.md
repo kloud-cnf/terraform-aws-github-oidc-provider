@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/kloud-cnf/terraform-aws-ci-role-provisioner/compare/v1.0.4...v1.0.5) (2023-06-17)
+
+
+### Bug Fixes
+
+* **ci:** remove lock file ([5420635](https://github.com/kloud-cnf/terraform-aws-ci-role-provisioner/commit/54206352cc32f931ac9e298bbf42d7c6ffaf254c))
+
 ## [1.0.4](https://github.com/kloud-cnf/terraform-aws-ci-role-provisioner/compare/v1.0.3...v1.0.4) (2023-06-17)
 
 
