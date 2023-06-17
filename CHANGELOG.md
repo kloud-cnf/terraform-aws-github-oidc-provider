@@ -1,3 +1,11 @@
+## [1.0.4](https://github.com/kloud-cnf/terraform-aws-ci-role-provisioner/compare/v1.0.3...v1.0.4) (2023-06-17)
+
+
+### Bug Fixes
+
+* **iam:** increase permissions on ci-role-provisoner to enable IAM role managment via IAC ([226696a](https://github.com/kloud-cnf/terraform-aws-ci-role-provisioner/commit/226696a11d3589843f87be90905e8d6ebcee9d8c))
+* **iam:** increase permissions on ci-role-provisoner to enable IAM role managment via IAC ([b6560f4](https://github.com/kloud-cnf/terraform-aws-ci-role-provisioner/commit/b6560f4feab00e63ca050a5a4ba1d6f33d262ca3))
+
 ## [1.0.3](https://github.com/kloud-cnf/terraform-aws-ci-role-provisioner/compare/v1.0.2...v1.0.3) (2023-06-16)
 
 
